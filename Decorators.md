@@ -1,9 +1,7 @@
-# First Class Functions:
-Functions in Python are first class citizens.  
-This implies that they support operations such as being, passed as an argument, returned from a function, modified, and assigned to a variable.  
-This is a fundamental concept to understand before we delve into creating Python decorators.  
+# Decorator
 
-To know more about it, there is similar concepts in Scala as well. please refer [this](https://github.com/TheCodeCache/Scala/blob/master/First-Class%20Functions.md)  
+It is strongly advised to understand `higher-order` function in order to understand decorators in python.  
+and to do that, follow [this](https://github.com/TheCodeCache/Python/blob/master/First-Class%20Functions.md)  
 
 When we decorate a component (be it a function, or a variable, or a class etc.),  
 it essentially means that we're simply attaching extra behavior to the component.  
