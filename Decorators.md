@@ -215,7 +215,10 @@ It has several usecases:
 4. Synchromization
 
 # Class Decorator
+This kind of decorator is usually achieved by making its instances `callable` through `__call__` dunder method:  
+It has been well explained [here](https://www.pythontutorial.net/advanced-python/python-class-decorators/)  
 
+However, as for the best practice, we should generally use function based decorators, as it gives more flexibility than the class level decorators.
 
 **Reference:**  
 1. https://www.datacamp.com/community/tutorials/decorators-python
