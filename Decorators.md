@@ -11,6 +11,10 @@ For ex (read the following):
 https://en.wikipedia.org/wiki/Decorator_pattern  
 
 There is a thin line b/w annotation and decorator, to know more refer [this](https://stackoverflow.com/a/37317724/6842300)  
+However, for the sake of terminology,  
+we usually say: `annotate` a function/variable/class, similarly  
+we could say: `decorate` a function/variable/class in python,  
+though there is difference b/w the two, as `annotation` only deals with `metadata` aspect whereas the `decorator` helps to `enhances` the functionality.  
 
 So, in Python, we've multiple types of decorators that applies to a:
 1. Function
