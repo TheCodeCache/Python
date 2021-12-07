@@ -3,7 +3,7 @@ Functions in Python are first class citizens.
 This implies that they support operations such as being, passed as an argument, returned from a function, modified, and assigned to a variable.  
 This is a fundamental concept to understand before we delve into creating Python decorators.  
 
-To know more about it, there is similar concepts in Scala as well.  
+To know more about it, there is similar concepts in `Scala` as well.  
 please refer [this](https://github.com/TheCodeCache/Scala/blob/master/First-Class%20Functions.md)  
 
 # Assigning Functions to Variables
