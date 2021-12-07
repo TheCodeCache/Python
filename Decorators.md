@@ -65,6 +65,150 @@ function()
 ```
 this last line `function()` literally translates to `outcome = decorator(function())`, where decorator is also a normal `higher-order` function  
 
+**Applying Multiple Decorators to a Single Function:**  
+We can use multiple decorators to a single function. However, the decorators will be applied in the order that we've called them  
+
+Code:  
+```python
+def split_string(function):
+    def wrapper():
+        func = function()
+        splitted_string = func.split()
+        return splitted_string
+
+    return wrapper
+```
+```python
+@split_string
+@uppercase_decorator
+def say_hi():
+    return 'hello there'
+say_hi()
+```
+Outcome:  
+```python
+['HELLO', 'THERE']
+```
+In the above code-snippet, the last function call `say_hi()` is equivalent to `outcome = split_tring(uppercase_decorator(say_hi()))`
+
+**Accepting Arguments in Decorator Functions:**  
+Code:  
+```python
+def decorator_with_arguments(function):
+    def wrapper_accepting_arguments(arg1, arg2):
+        print("My arguments are: {0}, {1}".format(arg1,arg2))
+        function(arg1, arg2)
+    return wrapper_accepting_arguments
+
+
+@decorator_with_arguments
+def cities(city_one, city_two):
+    print("Cities I love are {0} and {1}".format(city_one, city_two))
+
+cities("Nairobi", "Accra")
+```
+Outcome:  
+```python
+My arguments are: Nairobi, Accra
+Cities I love are Nairobi and Accra
+```
+
+**Defining General Purpose Decorators:**  
+Code:  
+```python
+def a_decorator_passing_arbitrary_arguments(function_to_decorate):
+    def a_wrapper_accepting_arbitrary_arguments(*args,**kwargs):
+        print('The positional arguments are', args)
+        print('The keyword arguments are', kwargs)
+        function_to_decorate(*args)
+    return a_wrapper_accepting_arbitrary_arguments
+
+@a_decorator_passing_arbitrary_arguments
+def function_with_no_argument():
+    print("No arguments here.")
+
+function_with_no_argument()
+```
+Outcome:  
+```python
+The positional arguments are ()
+The keyword arguments are {}
+No arguments here.
+```
+Using positional arguments:
+```python
+@a_decorator_passing_arbitrary_arguments
+def function_with_arguments(a, b, c):
+    print(a, b, c)
+
+function_with_arguments(1,2,3)
+```python
+The positional arguments are (1, 2, 3)
+The keyword arguments are {}
+1 2 3
+```
+Keyword arguments are passed using keywords
+```python
+@a_decorator_passing_arbitrary_arguments
+def function_with_keyword_arguments():
+    print("This has shown keyword arguments")
+
+function_with_keyword_arguments(first_name="Derrick", last_name="Mwiti")
+```
+Outcome:  
+```python
+The positional arguments are ()
+The keyword arguments are {'first_name': 'Derrick', 'last_name': 'Mwiti'}
+This has shown keyword arguments
+```
+
+# Best Practice with Decorators: 
+It is advisable and good practice to always use `functools.wraps` when defining decorators. It will help a lot during troubleshooting activity.  
+for ex:  
+```python
+import functools
+
+def uppercase_decorator(func):
+    @functools.wraps(func)
+    def wrapper():
+        return func().upper()
+    return wrapper
+```
+```python
+@uppercase_decorator
+def say_hi():
+    "This will say hi"
+    return 'hello there'
+
+say_hi()
+```
+Outcome:  
+```python
+'HELLO THERE'
+```
+Using this `functools`, we can now check the function's metadata, for ex:  
+```python
+say_hi.__name__
+```
+```python
+'say_hi'
+```
+```python
+say_hi.__doc__
+```
+```python
+'This will say hi'
+```
+
+
+**Python Decorators Summary:**  
+
+Decorators dynamically alter the functionality of a function, method, or class without having to directly use subclasses or change the source code of the function being decorated.  
+It has several usecases:  
+1. Authorization in Python frameworks such as Flask and Django
+2. Logging
+3. Measuring execution time
+4. Synchromization
 
 # Class Decorator
 
@@ -73,3 +217,7 @@ this last line `function()` literally translates to `outcome = decorator(functio
 1. https://www.datacamp.com/community/tutorials/decorators-python
 2. https://realpython.com/primer-on-python-decorators/
 3. https://python-course.eu/advanced-python/decorators-decoration.php
+4. https://wiki.python.org/moin/PythonDecoratorLibrary
+
+
+
