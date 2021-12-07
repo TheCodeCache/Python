@@ -1,5 +1,5 @@
 # First-Class Functions:
-Functions in Python are first class citizens.  
+`Functions in Python are first class citizens.`  
 This implies that they support operations such as being, passed as an argument, returned from a function, modified, and assigned to a variable.  
 This is a fundamental concept to understand before we delve into creating Python decorators.  
 
