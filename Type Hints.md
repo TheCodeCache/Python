@@ -1,7 +1,20 @@
-# Data-Type Hint
+
+# Data-Type Hint in Python
 Python’s type hints provide you with optional static typing to leverage the best of both static and dynamic typing.  
 
 The purpose of using type hint is to make code more robust, and most of the issues could be caught at compile time itself, thus improving the development efficiency.  
+
+However, **Python `Interpreter` does `NOT` honor the type-hints** which is evident as follows:
+
+```python
+# declared ratings variable as `int` but was not honored by `Interperter`
+>>> ratings: int = [1, 2, 3]
+>>> ratings
+[1, 2, 3]
+>>> type(ratings)
+<class 'list'>
+>>>
+```
 
 syntax for adding type-hint:
 1. for a parameter or variable:
@@ -63,18 +76,32 @@ def add(x, y):
 The above `add` function can work with `int` as well as `float` types both.  
 hence, instead of defining `add` two times one for each type, we could add type hints for multiple supporting types.  
 
+For Ex:
+```python
+# this is applicable to only for python 3.10 version or later
+def add(x: int | float, y: int | float) -> int | float:
+    return x + y
+```
 
+# Adding type hints for lists, dictionaries, and sets
 
+```python
+from typing import List
 
+ratings: List[int] = [1, 2, 3]
+```
+# None type
+If a function doesn’t explicitly returns a value, you can use None to type hint the return value.  
+For Example:  
+```python
+def log(message: str) -> None:
+    print(message)
+```
 
-
-
-
-
-
-
-
-
+**Re-terating:**  
+Python `Interpreter` always ignores the type-hints and checks for actual type at run time,  
+type-hints are only meaningful when we want to kind of catch possible errors at compile time,  
 
 **Reference:**  
 1. https://www.pythontutorial.net/python-basics/python-type-hints/
+
