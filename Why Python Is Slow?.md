@@ -1,6 +1,9 @@
 # Why Python is Slow:
 
-
+# PyObject
+THis is what makes Python, a `dynamic-typed` language.  
+And, every `value` in Python is internally represented as `PyObject`  
+The source code of `PyObject` can be found in [`object.h`](https://github.com/python/cpython/blob/main/Include/object.h)  
 
 # How to make it Fast:
 - Use `built-in C-modules` in Python like range()
