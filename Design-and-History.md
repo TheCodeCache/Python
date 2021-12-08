@@ -1,5 +1,5 @@
 
 
 **Reference:**  
-1. https://docs.python.org/2/faq/design.html
+1. https://docs.python.org/3/faq/design.html
 
