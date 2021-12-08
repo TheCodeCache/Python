@@ -1,4 +1,4 @@
-# Global Interpreter Lock
+# Global Interpreter Lock i.e. GIL
 
 
 
