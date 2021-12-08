@@ -1,4 +1,4 @@
-# Python Extension:
+# Python Extensions:
 Python Extension can be written in any langauge other than `C`, however with `C` has certain advantages over other languages.  
 
 # Python C-Extension Module:
@@ -12,5 +12,6 @@ on Windows, we call it as `.dll` i.e. `dynamic linked libraries`
 
 **Reference:**  
 1. https://docs.python.org/3/extending/building.html
-2. https://realpython.com/build-python-c-extension-module/
-3. 
+2. https://docs.python.org/3/extending/extending.html
+3. https://realpython.com/build-python-c-extension-module/
+4. 
