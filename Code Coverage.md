@@ -28,34 +28,34 @@ from unittest.mock import patch
 # Mocking environment variable before importing main module
 with patch.dict(os.environ,os_env,clear=True):
     # Mocking API call before importing main module
-    with patch('com.marsh.datalake.util.execute_lambda.executelambdafunction', return_value = '{"username":"wdq3e23sad"}'):
-        from com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor import lambda_handler
+    with patch('com.thecodecache.datalake.util.execute_lambda.executelambdafunction', return_value = '{"username":"wdq3e23sad"}'):
+        from com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor import lambda_handler
  
 #Mocking environment variables above class so that mocked env variable is available to all the internal functions
 @mock.patch.dict(os.environ, os_env, clear=True)
 class TestFlowExecutor(unittest.TestCase):
  
     #If we have imported the functions inside source files then we can directly mock them in test function.
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
+    @patch('com.mathecodecachersh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
     def test_lambda_handler_with_is_batch_complete_false(self,is_batch_complete):
         is_batch_complete.return_value = False
         self.assertEqual(lambda_handler(self.event,self.context),self.event)   
     
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.abcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.abcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
     #Argument list in test function should be in reverse order of @patch annotations sequence
     def test_lambda_handler_with_ibc_true_no_records(self,is_batch_complete,get_flow_config):
         is_batch_complete.return_value = True
         get_flow_config.return_value = ""
         self.assertEqual(lambda_handler(self.event,self.context),self.event)
  
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.call_lambda_and_handle_response')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.call_lambda_and_handle_response')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
     #If we are importing other class in source file and are calling its functions via its object then we should patch the function with fully qualified name i.e. including classname
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.abcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.abcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
     def test_lambda_handler_with_ibc_true_records_found_lambda(self,is_batch_complete,get_flow_config,get_job_config,get_payload,random_string,call_lambda_and_handle_response):
         is_batch_complete.return_value = True            
         get_flow_config.return_value = read_json_file("resources/record.json", "r")
@@ -68,7 +68,7 @@ class TestFlowExecutor(unittest.TestCase):
 ### 5. Mocking Muliple API calls for same function with different values
 Sample test case for setting different return values to multiple API calls of same function  
 ```python
-@patch('com.marsh.datalake.awslambda.abcdingestionhandler.ingestion_handler.call_lambda_and_handle_response')
+@patch('com.thecodecache.datalake.awslambda.abcdingestionhandler.ingestion_handler.call_lambda_and_handle_response')
 @patch('json.loads')
 def test_terminate_transient_cluster_has_sor_name_JobFlowId(self,json_loads,call_lambda_and_handle_response):
     print("*********************Inside function test_terminate_transient_cluster_has_sor_name_JobFlowId********************")
@@ -96,8 +96,8 @@ def test_lambda_handler(self,client):
 ```
 ### 6. Exception Testing
 ```python
-@patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-@patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+@patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+@patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
 def test_lambda_handler_exception_func(self,get_flow_config,send_email):  
     print("**********************Inside Function test_lambda_handler_exception_func********************")
     send_email.return_value = {}
@@ -123,7 +123,7 @@ import os,sys
  
 sys.path.append('src/main/python')
  
-from com.marsh.datalake.util.common_utils import read_json_file
+from com.thecodecache.datalake.util.common_utils import read_json_file
  
 path = 'resources/test_flow_executor/'
  
@@ -132,8 +132,8 @@ os_env = read_json_file(path + "env_var.json", "r")
 # Mocking environment variable before importing main module
 with patch.dict(os.environ,os_env,clear=True):
     # Mocking API call before importing main module
-    with patch('com.marsh.datalake.util.execute_lambda.executelambdafunction', return_value = {'svc-dev-mymarsh-app':'abcdefgh'}):
-        from com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor import *
+    with patch('com.thecodecache.datalake.util.execute_lambda.executelambdafunction', return_value = {'svc-dev-mythecodecache-app':'abcdefgh'}):
+        from com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor import *
  
              
 #Mocking environment variables above class so that mocked env variable is available to all the internal functions
@@ -149,8 +149,8 @@ class TestFlowExecutor(unittest.TestCase):
  
     ######  Test Case To Test Is Batch Complete = False functionality   #####
     #If we have imported the functions inside source files then we can directly mock them in test function.
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
     def test_lambda_handler_with_is_batch_complete_false(self,is_batch_complete,send_email):
         print("*********************Inside function test_lambda_handler_with_is_batch_complete_false********************")
         is_batch_complete.return_value = False    
@@ -159,9 +159,9 @@ class TestFlowExecutor(unittest.TestCase):
  
     ######  Test Case To Test No Record Found functionality When Is Batch Complete = True   #####
     #Argument list in test function should be in reverse order of @patch annotations sequence.   
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')
     def test_lambda_handler_with_ibc_true_no_records(self,is_batch_complete,get_flow_config,send_email):
         print("**********************Inside Function test_lambda_handler_with_ibc_true_no_records************************")
         is_batch_complete.return_value = True
@@ -171,14 +171,14 @@ class TestFlowExecutor(unittest.TestCase):
         print("**************************END OF test_lambda_handler_with_ibc_true_no_records********************************")
  
     ######  Test Case To Test Lambda Function Flow when Records Found and Is Batch Complete = True   #####
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.call_lambda_and_handle_response')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.call_lambda_and_handle_response')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
     #If we are importing other class in source file and are calling its functions via its object then we should patch the function with fully qualified name  i.e. including classname
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
     def test_lambda_handler_with_ibc_true_records_found_lambda(self,is_batch_complete,get_flow_config,get_job_config,get_payload,random_string,call_lambda_and_handle_response,send_email):  
         print("**********************Inside Function test_lambda_handler_with_ibc_true_records_found_lambda********************")
         is_batch_complete.return_value = True            
@@ -191,13 +191,13 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_lambda_handler_with_ibc_true_records_found_lambda*******************************")
  
     ######  Test Case To Test Step Function Flow when Records Found and Is Batch Complete = True   #####
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.call_stepfn_and_handle_response')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.call_stepfn_and_handle_response')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
     def test_lambda_handler_with_ibc_true_records_found_stepfunction(self,is_batch_complete,get_flow_config,get_job_config,get_payload,random_string,call_stepfn_and_handle_response,send_email):  
         print("**********************Inside Function test_lambda_handler_with_ibc_true_records_found_stepfunction********************")
         is_batch_complete.return_value = True            
@@ -210,12 +210,12 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_lambda_handler_with_ibc_true_records_found_stepfunction*******************************")
      
     ######  Test Case To Test Unsupported Function Flow when Records Found and Is Batch Complete = True   #####
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.random_string')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_payload')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.get_job_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.is_batch_complete')  
     def test_lambda_handler_with_ibc_true_records_found_unsupported_func(self,is_batch_complete,get_flow_config,get_job_config,get_payload,random_string,send_email):  
         print("**********************Inside Function test_lambda_handler_with_ibc_true_records_found_unsupported_func********************")
         is_batch_complete.return_value = True            
@@ -227,8 +227,8 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_lambda_handler_with_ibc_true_records_found_unsupported_func*******************************") 
  
     ######  Test Case To Test Exception Handling for Lambda Handler Function   #####
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.send_email')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.AbcdFlowConfigDAO.get_flow_config')
     def test_lambda_handler_exception_func(self,get_flow_config,send_email):  
         print("**********************Inside Function test_lambda_handler_exception_func********************")
         send_email.return_value = {}
@@ -239,7 +239,7 @@ class TestFlowExecutor(unittest.TestCase):
 #####################################  TEST CASES TO TEST get_job_config FUNCTIONALITY ###################################################       
  
     ######  Test Case To Test the config collection present Flow   #####
-    @patch('com.marsh.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
+    @patch('com.thecodecache.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
     def test_get_job_config_with_config_collection(self,get_job_config1):
         print("************************Inside Function test_get_job_config_with_config_collection**********************")       
         get_job_config1.return_value = read_json_file(path + "job_configs.json", "r")
@@ -247,10 +247,10 @@ class TestFlowExecutor(unittest.TestCase):
         for job_config in job_config_list:
             #check if keys from event are present
             self.assertEqual(job_config['hiveQueryS3Location'],"s3://ma-aws-us-ue1-ss3-dev-datalake-artifacts/HIVE/lpm_script/lpm_data_feed.sql") 
-            self.assertEqual(job_config['S3_ENCRYPTION_KEY'],"alias/S3/MarshDev-MBDL") 
+            self.assertEqual(job_config['S3_ENCRYPTION_KEY'],"alias/S3/TheCodeCacheDev-MBDL") 
              
             #check if append updated the common key value with latest dict
-            self.assertEqual(job_config['GetCatalogueInfo']['feed_business_name'],"mymarsh.env_jobs_feed_name")  
+            self.assertEqual(job_config['GetCatalogueInfo']['feed_business_name'],"mythecodecache.env_jobs_feed_name")  
             self.assertEqual(job_config['F10_value'],991111)
              
             #check if keys from job_config are present
@@ -260,7 +260,7 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_get_job_config_with_config_collection*******************************")
  
     ######  Test Case To Test without config collection Flow   #####
-    @patch('com.marsh.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
+    @patch('com.thecodecache.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
     def test_get_job_config_without_config_collection(self,get_job_configDAO):
         print("************************Inside Function test_get_job_config_without_config_collection**********************")       
         get_job_configDAO.return_value = read_json_file(path + "job_configs.json", "r")
@@ -268,7 +268,7 @@ class TestFlowExecutor(unittest.TestCase):
         for job_config in job_config_list:
             #check if keys from event are present
             self.assertEqual(job_config['hiveQueryS3Location'],"s3://ma-aws-us-ue1-ss3-dev-datalake-artifacts/HIVE/lpm_script/lpm_data_feed.sql") 
-            self.assertEqual(job_config['S3_ENCRYPTION_KEY'],"alias/S3/MarshDev-MBDL") 
+            self.assertEqual(job_config['S3_ENCRYPTION_KEY'],"alias/S3/TheCodeCacheDev-MBDL") 
                         
             #check if keys from job_config are present
             self.assertEqual(job_config['spark_job_config']['standard_configs']['deploy-mode'],"client")
@@ -277,7 +277,7 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_get_job_config_without_config_collection*******************************")
  
     ######  Test Case To Test without config and config collection Flow   #####
-    @patch('com.marsh.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
+    @patch('com.thecodecache.datalake.dao.abcdingestionmaster.flow_config_master.AbcdFlowConfigDAO.get_job_config')
     def test_get_job_config_without_config_config_collection(self,get_job_configDAO):
         print("************************Inside Function test_get_job_config_without_config_config_collection**********************")       
         get_job_configDAO.return_value = read_json_file(path + "job_configs.json", "r")
@@ -285,7 +285,7 @@ class TestFlowExecutor(unittest.TestCase):
         print("***********************END OF test_get_job_config_without_config_config_collection*******************************")
  
 #####################################  TEST CASE TO TEST get_payload FUNCTIONALITY ###################################################
-    @patch('com.marsh.datalake.awslambda.abcdflowexecutor.flow_executor.populate_cluster_details')
+    @patch('com.thecodecache.datalake.awslambda.abcdflowexecutor.flow_executor.populate_cluster_details')
     def test_get_payload(self,populate_cluster_details):
         print("************************Inside Function test_get_payload**********************")       
         populate_cluster_details.return_value = {}
