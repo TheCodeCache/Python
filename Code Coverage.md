@@ -325,7 +325,7 @@ For generating Python Unit test Coverage report, add below execution step in pom
 ![image](https://user-images.githubusercontent.com/26399543/153482504-bc715341-521e-4351-9719-da49dac9e355.png)  
 
 **SonarQube Dashboard - Current status of Project Coverage report on SonarQube Dashboard:**  
-![image](https://user-images.githubusercontent.com/26399543/153482667-bbd3718a-f880-4285-9388-cd58f14e911a.png)  
+<img src="https://user-images.githubusercontent.com/26399543/153482667-bbd3718a-f880-4285-9388-cd58f14e911a.png" width="50%" height="50%">  
 
 ### 5. Steps to execute Unit Test Cases from local
 ![image](https://user-images.githubusercontent.com/26399543/153482900-3a890922-d84a-428c-9419-ab3de0599322.png)  
