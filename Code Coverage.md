@@ -330,10 +330,9 @@ For generating Python Unit test Coverage report, add below execution step in pom
 ### 5. Steps to execute Unit Test Cases from local
 ![image](https://user-images.githubusercontent.com/26399543/153482900-3a890922-d84a-428c-9419-ab3de0599322.png)  
 
+### Sample Code – 
 
-
-
-
+**pom.xml:**  
 
 ```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -553,4 +552,62 @@ For generating Python Unit test Coverage report, add below execution step in pom
     </build>
 </project>
 ```
+**build assembly file:**  
+```xml
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+	<id>abcdpysparkhandler_lambda</id>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<fileSets>
+		
+		<fileSet>
+			<directory>src/main/python</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>com/__init__.py</include>
+				<include>com/thecodecache/__init__.py</include>
+				<include>com/thecodecache/datalake/__init__.py</include>
+				<include>com/thecodecache/datalake/awslambda/__init__.py</include>
+				<include>com/thecodecache/datalake/awslambda/abcdpysparkhandler/**</include>
+				<include>com/thecodecache/datalake/exception/**</include>
+				<include>com/thecodecache/datalake/util/**</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>target/pylib/abcdpysparkhandler</directory>
+			<outputDirectory></outputDirectory>
+		</fileSet>		
+	</fileSets>
+</assembly>
+```
+**Lambda code:**  
+```python
+import boto3
+import botocore
+import json
+import os
 
+'''
+This function will invoke any lambda with the desired payload.
+remove_proxy(true or false) is added, in case you need to remove the proxy
+to work upon the s3 buckets.
+'''
+def executelambdafunction(lambda_execute, msg_body):
+    if 'LAMBDA_ENDPOINT' in os.environ:
+        lamb = boto3.client('lambda', endpoint_url=os.environ['LAMBDA_ENDPOINT'])
+    else:
+        lamb = boto3.client('lambda')
+    lamb_response = lamb.invoke(
+                 FunctionName=lambda_execute,
+                 InvocationType="RequestResponse",
+                 Payload=json.dumps(msg_body)
+            )
+    pass_resp = lamb_response['Payload'].read().decode()
+    pass_response = json.loads(pass_resp)
+    return pass_response
+```
