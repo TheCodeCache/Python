@@ -67,6 +67,31 @@ result = name - 23 # this would fail obv. as we're operating on two different ty
 name = 100 # this would still work, just mentioned above python interpreter ignores type-hint for the assignment part
 
 ```
+
+# Using a static type checker tool: `mypy` 
+
+Python doesn't have an official static type checker tool.  
+At the moment, the most popular third-party tool is `Mypy`. Since `Mypy` is a third-party package,  
+we need to install it like this:  
+```
+pip install mypy
+```
+
+we can check the type before running the program by using the following command:  
+```
+mypy app.py
+```
+
+It shows error in the following message/format:  
+```
+app.py:5: error: Argument 1 to "say_hi" has incompatible type "int"; expected "str"
+Found 1 error in 1 file (checked 1 source file)
+```
+if we correct these issues, and re-run the above cmd, then it displays a success message:  
+```
+Success: no issues found in 1 source file
+```
+
 # Adding type hints for multiple types
 
 ```python
@@ -98,7 +123,7 @@ def log(message: str) -> None:
     print(message)
 ```
 
-**Re-terating:**  
+**Re-iterating:**  
 Python `Interpreter` always ignores the type-hints and checks for actual type at run time,  
 type-hints are only meaningful when we want to kind of catch possible errors at compile time,  
 
