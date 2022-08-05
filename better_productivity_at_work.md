@@ -80,9 +80,9 @@ python down_aws_s3.py <full_s3_path> <full local path>
 python up_aws_s3.py <full local path> <full_s3_path>
 ```
 
-# Customized Scripts for Better Productivity – 
+# Customized Scripts – 
 
-it is built on top of above original scripts  
+**it is built on top of above original scripts**  
 
 ```python
 
