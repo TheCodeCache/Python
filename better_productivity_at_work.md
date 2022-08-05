@@ -612,4 +612,30 @@ public class Resume {
 	}
 }
 
+
+package com.naukri.profile_update;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Scheduler {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		Timer timer = new Timer();
+		TimerTask task = new MyTask();
+		timer.schedule(task, 5000, 12000);
+	}
+}
+
+class MyTask extends TimerTask {
+
+	private String resume = "C:\\Users\\manoranjan.kumar\\Downloads\\vc\\Manoranjan_Resume.pdf";
+
+	@Override
+	public void run() {
+		Resume.upload(resume);
+	}
+}
+
 ```
