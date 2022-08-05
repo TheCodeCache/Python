@@ -9,7 +9,7 @@ def upload (profile,endpoint_url,bucket_name,orig_file_name,Tgt_file_name):
 		region_name='us-east-1',
 		endpoint_url=endpoint_url,
 		config=boto3.session.Config(signature_version='s3v4'))
-		s3.Bucket(bucket_name).upload_file(orig_file_name,Tgt_file_name,ExtraArgs={'ServerSideEncryption':'aws:kms','SSEKMSKeyId':'alias/S3/MarshDev-MBDL'})
+		s3.Bucket(bucket_name).upload_file(orig_file_name,Tgt_file_name,ExtraArgs={'ServerSideEncryption':'aws:kms','SSEKMSKeyId':'alias/S3/Dev'})
 		print('File Uploaded Successfully:' + str(Tgt_file_name) + ' in bucket [' + bucket_name +']')
 	except botocore.exceptions.ClientError as e:
 		print(e.response)
