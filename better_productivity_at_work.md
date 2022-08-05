@@ -1,4 +1,4 @@
-# Example – 1
+# Example – 1 (Customizing Python Scripts)
 
 ### 1. Original upload python script (copy from Local to S3) –  
 `up_aws_s3.py` – 
@@ -471,9 +471,8 @@ this cmd is for individual file download in this case it gets just stdout.gz fro
 
 ```
 
-# Example - 2: 
+# Example - 2: (Profile update activity on https://naukri.com)
 
-### Profile update activity on naukri.com
 
 ```java
 package com.naukri.profile_update;
