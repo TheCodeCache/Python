@@ -91,6 +91,9 @@ Use this for debug level logging:
 boto3.set_stream_logger(name='botocore', level="DEBUG")
 python aws_s3.py up artifacts full_data_refresh.sh spark/data_spark/full_data_refresh.sh
 python aws_s3.py dn artifacts feed_profile.json CATALOG/feed_profile.json
+
+@author - TheCodeCache - Manoranjan
+
 '''
 import sys, os, json, botocore, boto3, socket, time, pandas as pd
 import matplotlib.pyplot as plt
@@ -498,7 +501,7 @@ import org.openqa.selenium.edge.EdgeDriver;
  * TODO - To make it resilient from failure, also in case of failure, it must
  * send a response w/o fail
  * 
- * @author TheCodeCache
+ * @author TheCodeCache - Manoranjan
  */
 public class Resume {
 
