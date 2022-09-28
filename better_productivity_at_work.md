@@ -474,8 +474,8 @@ this cmd is for individual file download in this case it gets just stdout.gz fro
 
 ```
 
-# Example - 2: (Profile update activity on https://naukri.com)
-
+# Example-2-Profile-update-activity
+ on https://naukri.com  
 
 ```java
 package com.naukri.profile_update;
