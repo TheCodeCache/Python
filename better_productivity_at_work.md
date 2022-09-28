@@ -32,7 +32,7 @@ try:
         print("Invalid Arguments passed")
         sys.exit(0)
 except botocore.exceptions.ClientError as e:
-    print(e.response)
+    print(e.response) 
 
 ```
 
